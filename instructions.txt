@@ -1,0 +1,14 @@
+kubectl apply -f ./motionpredictor-service.yml
+kubectl apply -f ./motionpredictor-deployment.yml
+
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install kafka --set autoCreateTopicsEnable=true bitnami/kafka
+
+kubectl apply -f backend-service.yml
+kubectl apply -f backend-configmap.yml
+kubectl apply -f backend-deployment.yml
+
+kubectl apply -f react-service.yml
+kubectl apply -f react-configmap.yml
+kubectl apply -f react-deployment.yml

@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: motionpredictor
+spec:
+  type: ClusterIP
+  selector:
+    app: motionpredictor-server
+    version: v1.0.0
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 5000
+      # Port to forward to inside the pod
+      targetPort: 5000

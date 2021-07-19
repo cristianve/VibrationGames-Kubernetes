@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: motionpredictor-v1.0.0
+  labels:
+    app: motionpredictor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: motionpredictor-server
+  template:
+    metadata:
+      labels:
+        app: motionpredictor-server
+        version: v1.0.0
+    spec:
+      containers:
+        - name: motionpredictor
+          image: registry.gitlab.com/mdastfm/machinelearning/motionpredictor:v1.0.0
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
